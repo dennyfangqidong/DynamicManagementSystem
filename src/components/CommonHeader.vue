@@ -1,0 +1,72 @@
+<template>
+    <header>
+        
+        <div class='l-content'>
+            <el-button type="primary" icon="el-icon-menu" size="mini"></el-button>
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item :to="{ path: '/' }">first page</el-breadcrumb-item>
+                <el-breadcrumb-item>
+                    <a href="current.path" v-if="current">{{current.label}}</a>
+                </el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class='r-content'>
+            <el-dropdown>
+            <span class="el-dropdown-link">
+                <img :src="userImg" class="user">
+            </span>
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>个人中心</el-dropdown-item>
+                <el-dropdown-item>退出</el-dropdown-item>
+            </el-dropdown-menu>
+            </el-dropdown>
+        </div>
+    </header>
+</template>
+
+<script>
+    import {mapState} from 'vuex'
+    export default {
+        computed:{
+            ...mapState({
+                current: state=>state.tab.currentMenu
+            })
+        },
+        data(){
+            return{
+                userImg:require('../images/user.jpg')
+            }
+        },
+    }
+</script>
+
+<style lang="scss" scoped>
+header{
+    display:flex;
+    height:100%;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.l-content{
+    display:flex;
+    align-items:center;
+    .el-button{
+        margin-right:20px;
+    }
+}
+
+.r-content{
+    .user{
+        width:40px;
+        height:40px;
+        border-radius:50%
+    }
+}
+</style>
+
+<style lang="scss">
+.el-breadcrumb__inner a, .el-breadcrumb__inner.is-link{
+    color:#fff
+}
+</style>
